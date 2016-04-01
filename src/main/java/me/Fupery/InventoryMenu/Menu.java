@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Menu extends InventoryMenu {
 
-    MenuListener listener;
+    protected MenuListener listener;
 
     public Menu(JavaPlugin plugin, String title, InventoryType type) {
         super(null, title, type);
@@ -35,5 +35,8 @@ public class Menu extends InventoryMenu {
         if (!Bukkit.getServicesManager().isProvidedFor(MenuListener.class)) {
             Bukkit.getServicesManager().register(MenuListener.class, listener, plugin, ServicePriority.Normal);
         }
+    }
+    public MenuListener getListener() {
+        return listener;
     }
 }
