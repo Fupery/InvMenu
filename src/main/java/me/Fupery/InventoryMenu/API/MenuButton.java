@@ -41,7 +41,7 @@ public abstract class MenuButton extends ItemStack {
 
         @Override
         public void onClick(JavaPlugin plugin, Player player) {
-            player.playSound(player.getLocation(), Sound.NOTE_STICKS, 1, 1);
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
             linkedMenu.open(plugin, player);
         }
     }
@@ -74,7 +74,7 @@ public abstract class MenuButton extends ItemStack {
 
                     if (menu.parent != null) {
                         menu.parent.open(plugin, player);
-                        player.playSound(player.getLocation(), Sound.NOTE_STICKS, 1, 3);
+                        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 3);
                     }
                 }
             });
