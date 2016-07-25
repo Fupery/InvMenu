@@ -83,7 +83,7 @@ public abstract class ListMenu extends InventoryMenu {
         public void onClick(JavaPlugin plugin, Player player) {
             int page = getAmount();
             page += forward ? -1 : 1;
-            SoundCompat.CLICK.play(player);
+            SoundCompat.UI_BUTTON_CLICK.play(player);
             menu.changePage(plugin, player, page, forward);
         }
     }
