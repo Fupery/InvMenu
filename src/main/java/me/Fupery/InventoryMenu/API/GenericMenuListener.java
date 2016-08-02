@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -87,6 +89,20 @@ public class GenericMenuListener implements MenuListener {
 
         if (player != null && openMenus.containsKey(player.getUniqueId())) {
             openMenus.get(player.getUniqueId()).close(player);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        if (openMenus.containsKey(event.getPlayer().getUniqueId())) {
+            openMenus.remove(event.getPlayer().getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (openMenus.containsKey(event.getEntity().getUniqueId())) {
+            openMenus.remove(event.getEntity().getUniqueId());
         }
     }
 

@@ -36,6 +36,7 @@ public class Menu extends InventoryMenu {
             Bukkit.getServicesManager().register(MenuListener.class, listener, plugin, ServicePriority.Normal);
         }
     }
+
     public MenuListener getListener() {
         return listener;
     }
