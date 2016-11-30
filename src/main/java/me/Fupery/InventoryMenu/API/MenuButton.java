@@ -65,6 +65,10 @@ public abstract class MenuButton extends ItemStack {
             super(Material.BARRIER, "close");
             this.menu = menu;
         }
+        public CloseButton(InventoryMenu menu, String usage) {
+            super(Material.BARRIER, usage);
+            this.menu = menu;
+        }
 
         @Override
         public void onClick(final JavaPlugin plugin, final Player player) {

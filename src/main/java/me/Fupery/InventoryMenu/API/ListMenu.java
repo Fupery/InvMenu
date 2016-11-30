@@ -6,20 +6,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import static me.Fupery.InventoryMenu.API.MenuButton.*;
+
 public abstract class ListMenu extends InventoryMenu {
 
     protected static final int maxButtons = 25;
     protected MenuButton[] listItems;
+    protected String closeButtonText;
 
     protected ListMenu(InventoryMenu parent, String title) {
         super(parent, title, InventoryType.CHEST);
+        closeButtonText = null;
+    }
+
+    protected ListMenu(InventoryMenu parent, String title, String closeButtonText) {
+        super(parent, title, InventoryType.CHEST);
+        this.closeButtonText = closeButtonText;
     }
 
     protected MenuButton[] paginateButtons(int page, MenuButton... listItems) {
         MenuButton[] buttons = new MenuButton[maxButtons + 2];
 
         if (page < 1) {
-            buttons[0] = new MenuButton.CloseButton(this);
+            buttons[0] = closeButtonText == null ? new CloseButton(this) : new CloseButton(this, closeButtonText);
 
         } else {
             buttons[0] = new PageButton(this, false);
