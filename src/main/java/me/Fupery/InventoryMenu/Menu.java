@@ -1,43 +1,75 @@
 package me.Fupery.InventoryMenu;
 
-import me.Fupery.InventoryMenu.API.GenericMenuListener;
-import me.Fupery.InventoryMenu.API.InventoryMenu;
-import me.Fupery.InventoryMenu.API.MenuListener;
+import me.Fupery.InventoryMenu.API.Event.PluginUnloadListener;
+import me.Fupery.InventoryMenu.API.Handler.MenuHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.plugin.ServicePriority;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.Plugin;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Iterator;
 
-public class Menu extends InventoryMenu {
+public final class Menu {
+    private static Menu menu = null;
+    private HashMap<String, MenuHandler> handlers;
+    private PluginUnloadListener unloadListener;
 
-    protected MenuListener listener;
-
-    public Menu(JavaPlugin plugin, String title, InventoryType type) {
-        super(null, title, type);
-        listener = new GenericMenuListener(plugin);
-        registerListener(plugin);
+    private Menu(Plugin plugin) {
+        this.handlers = new HashMap<>();
+        unloadListener = new PluginUnloadListener(this);
+        unloadListener.register(plugin);
     }
 
-    @Override
-    public InventoryMenu subMenu(String title, InventoryType type) {
-        return super.subMenu(title, type);
+    /**
+     * @param plugin The plugin using this menu.
+     * @return The Menu Handler associated with the plugin provided.
+     */
+    public static MenuHandler getMenuHandler(Plugin plugin) {
+        Menu menu = getMenu(plugin);
+        if (menu.handlers.containsKey(plugin.getName())) {
+            return menu.handlers.get(plugin.getName());
+        }
+        MenuHandler handler = new AccessibleMenuHandler(plugin);
+        menu.handlers.put(plugin.getName(), handler);
+        return handler;
     }
 
-    @Override
-    public ConcurrentHashMap<UUID, InventoryMenu> getOpenMenus() {
-        return listener.getOpenMenus();
+    private static Menu getMenu(Plugin plugin) {
+        if (Menu.menu != null) return Menu.menu;
+        return menu = new Menu(plugin);
     }
 
-    protected void registerListener(JavaPlugin plugin) {
-        if (!Bukkit.getServicesManager().isProvidedFor(MenuListener.class)) {
-            Bukkit.getServicesManager().register(MenuListener.class, listener, plugin, ServicePriority.Normal);
+    private static void setMenu(Menu menu) {
+        Menu.menu = menu;
+    }
+
+    public void deregisterPlugin(Plugin plugin) {
+        String pluginName = plugin.getName();
+        if (!handlers.containsKey(pluginName)) return;
+        MenuHandler handler = handlers.get(pluginName);
+        handler.closeAll();
+        handlers.remove(pluginName);
+        if (pluginName.equals(unloadListener.getHandlingPlugin())) {
+            unloadListener.deregister();
+            Iterator<String> i = handlers.keySet().iterator();
+            if (i.hasNext()) {
+                unloadListener.register(Bukkit.getPluginManager().getPlugin(i.next()));
+            } else {
+                setMenu(null);
+            }
         }
     }
 
-    public MenuListener getListener() {
-        return listener;
+    @Override
+    protected void finalize() throws Throwable {
+        handlers.clear();
+        unloadListener.deregister();
+        super.finalize();
+    }
+
+    private static class AccessibleMenuHandler extends MenuHandler {
+
+        private AccessibleMenuHandler(Plugin plugin) {
+            super(plugin);
+        }
     }
 }

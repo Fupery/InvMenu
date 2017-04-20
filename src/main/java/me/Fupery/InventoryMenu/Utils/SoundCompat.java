@@ -1,11 +1,11 @@
 package me.Fupery.InventoryMenu.Utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import static me.Fupery.InventoryMenu.Utils.VersionHandler.*;
+import static me.Fupery.InventoryMenu.Utils.VersionHandler.getVersion;
+import static me.Fupery.InventoryMenu.Utils.VersionHandler.v1_8;
 
 public enum SoundCompat {
     AMBIENT_CAVE(Sound_1_8.AMBIENCE_CAVE),
@@ -472,6 +472,8 @@ public enum SoundCompat {
     ENTITY_WITHER_SKELETON_STEP,
     ITEM_ELYTRA_FLYING;
 
+    private final Sound sound;
+
     SoundCompat() {
         this.sound = getSound(name());
     }
@@ -479,6 +481,7 @@ public enum SoundCompat {
     SoundCompat(Sound_1_8 oldSound) {
         sound = (getVersion() == v1_8) ? Sound.values()[oldSound.ordinal()] : getSound(name());
     }
+
     private static Sound getSound(String name) {
         Sound sound;
         try {
@@ -488,7 +491,6 @@ public enum SoundCompat {
         }
         return sound;
     }
-    private final Sound sound;
 
     public void play(Player player) {
         play(player, 1, 1);
@@ -509,6 +511,7 @@ public enum SoundCompat {
             location.getWorld().playSound(location, sound, volume, pitch);
         }
     }
+
     enum SupportedVersion {
         V1_8, V1_9, V1_10;
     }
