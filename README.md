@@ -87,7 +87,7 @@ MenuHandler handler = Menu.getMenuHandler(yourPlugin);
 BasicMenu myMenu = new BasicMenu(null, "My Menu.", InventoryType.CHEST);
 ```
 
-Add buttons to the menu by overriding the class's getButtons[] method, and returning an array of buttons.
+Add buttons to the menu by overriding the class's getButtons#Button[] method, and returning an array of buttons.
 There are lots of different types of buttons, and you can create your own, too! Some examples are shown in the menu below.
 ```Java
 MenuHandler handler = Menu.getMenuHandler(yourPlugin);
