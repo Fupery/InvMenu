@@ -1,9 +1,6 @@
-package me.Fupery.InventoryMenu.Utils;
+package me.Fupery.InvMenu.Utils;
 
 import org.bukkit.Bukkit;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public enum VersionHandler {
     v1_8, v1_9, v1_10;

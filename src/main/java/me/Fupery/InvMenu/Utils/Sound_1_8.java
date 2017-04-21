@@ -1,4 +1,4 @@
-package me.Fupery.InventoryMenu.Utils;
+package me.Fupery.InvMenu.Utils;
 
 public enum Sound_1_8 {
     AMBIENCE_CAVE,
