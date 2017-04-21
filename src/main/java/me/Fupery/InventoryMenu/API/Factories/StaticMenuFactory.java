@@ -1,6 +1,7 @@
-package me.Fupery.InventoryMenu.API.Handler;
+package me.Fupery.InventoryMenu.API.Factories;
 
 import me.Fupery.InventoryMenu.API.Event.MenuFactory;
+import me.Fupery.InventoryMenu.API.Handler.CacheableMenu;
 import org.bukkit.entity.Player;
 
 import java.lang.ref.WeakReference;
@@ -22,7 +23,7 @@ public class StaticMenuFactory implements MenuFactory {
         return menuWeakReference.get();
     }
 
-    interface MenuGenerator {
+    public interface MenuGenerator {
         CacheableMenu get();
     }
 }

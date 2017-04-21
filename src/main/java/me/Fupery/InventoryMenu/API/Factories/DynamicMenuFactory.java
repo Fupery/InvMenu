@@ -1,6 +1,7 @@
-package me.Fupery.InventoryMenu.API.Handler;
+package me.Fupery.InventoryMenu.API.Factories;
 
 import me.Fupery.InventoryMenu.API.Event.MenuFactory;
+import me.Fupery.InventoryMenu.API.Handler.CacheableMenu;
 import org.bukkit.entity.Player;
 
 public class DynamicMenuFactory implements MenuFactory {
@@ -15,7 +16,7 @@ public class DynamicMenuFactory implements MenuFactory {
         return generator.get(viewer);
     }
 
-    interface MenuGenerator {
+    public interface MenuGenerator {
         CacheableMenu get(Player viewer);
     }
 }
