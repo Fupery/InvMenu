@@ -40,7 +40,7 @@ Example setup:
                     <minimizeJar>false</minimizeJar>
                     <artifactSet>
                         <includes>
-                            <include>me.Fupery:InvMenu:*</include>
+                            <include>com.github.Fupery:InvMenu:*</include>
                         </includes>
                     </artifactSet>
                 </configuration>
