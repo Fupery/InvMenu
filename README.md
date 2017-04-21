@@ -56,7 +56,7 @@ Check out the examples [here](https://jitpack.io/#Fupery/InvMenu/1.2) for other 
 
 
 ## Using InvMenu
-####Getting Started
+#### Getting Started
 To get started creating custom menus, you'll need a **MenuHandler**. Every plugin has one MenuHandler, it is accessed using the Menu class:
 ```Java
 MenuHandler handler = Menu.getMenuHandler(yourPlugin);
