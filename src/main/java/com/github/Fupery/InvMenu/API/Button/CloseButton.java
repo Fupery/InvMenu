@@ -12,7 +12,17 @@ public class CloseButton extends Button {
     private final CacheableMenu menu;
 
     public CloseButton(CacheableMenu menu) {
-        super(Material.BARRIER, "Close"); //todo
+        super(Material.BARRIER, "Close");
+        this.menu = menu;
+    }
+
+    public CloseButton(CacheableMenu menu, String... text) {
+        super(Material.BARRIER, text);
+        this.menu = menu;
+    }
+
+    public CloseButton(CacheableMenu menu, int durability, String... text) {
+        super(Material.BARRIER, durability, text);
         this.menu = menu;
     }
 
