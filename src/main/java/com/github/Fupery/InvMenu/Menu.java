@@ -22,7 +22,6 @@ public final class Menu {
     /**
      * @param plugin The plugin using this menu.
      * @return The Menu Handler associated with the plugin provided.
-     *
      * @see MenuHandler
      */
     public static MenuHandler getMenuHandler(Plugin plugin) {

@@ -63,10 +63,10 @@ public class MenuHandler {
     /**
      * Click the menu in the slot provided.
      *
-     * @param viewer The player who clicked the button.
-     * @param slot The slot of the button that was clicked.
+     * @param viewer    The player who clicked the button.
+     * @param slot      The slot of the button that was clicked.
      * @param clickType The type of click.
-     *                  @see ClickType
+     * @see ClickType
      */
     public void fireClickEvent(Player viewer, int slot, ClickType clickType) {
         if (!openMenus.containsKey(viewer.getUniqueId()) || viewer.getOpenInventory() == null) return;
@@ -89,7 +89,7 @@ public class MenuHandler {
      * @param viewer
      * @param reason The reason why this menu is being closed.
      *               This may affect the menu's behaviour when it closes.
-     *               @see com.github.Fupery.InvMenu.API.Event.MenuCloseReason
+     * @see com.github.Fupery.InvMenu.API.Event.MenuCloseReason
      */
     public void closeMenu(Player viewer, MenuCloseReason reason) {
         if (!openMenus.containsKey(viewer.getUniqueId())) return;

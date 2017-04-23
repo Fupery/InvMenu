@@ -2,14 +2,14 @@ package com.github.Fupery.InvMenu.API.Event;
 
 /**
  * The reason for a menu being closed. Reasons include:
- *{@link MenuCloseReason#DEATH},
- *{@link MenuCloseReason#DONE},
- *{@link MenuCloseReason#CLIENT},
- *{@link MenuCloseReason#BACK},
- *{@link MenuCloseReason#SWITCH},
- *{@link MenuCloseReason#QUIT},
- *{@link MenuCloseReason#SPECIAL},
- *{@link MenuCloseReason#SYSTEM}
+ * {@link MenuCloseReason#DEATH},
+ * {@link MenuCloseReason#DONE},
+ * {@link MenuCloseReason#CLIENT},
+ * {@link MenuCloseReason#BACK},
+ * {@link MenuCloseReason#SWITCH},
+ * {@link MenuCloseReason#QUIT},
+ * {@link MenuCloseReason#SPECIAL},
+ * {@link MenuCloseReason#SYSTEM}
  */
 public enum MenuCloseReason {
     /**

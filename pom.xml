@@ -6,7 +6,7 @@
 
     <groupId>com.github.Fupery</groupId>
     <artifactId>InvMenu</artifactId>
-    <version>1.2</version>
+    <version>1.2.2</version>
     <description>A Simple Inventory Menu Library</description>
 
     <build>

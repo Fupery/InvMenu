@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 /**
  * Represents a button in an InvMenu.
+ *
  * @see BasicMenu
  */
 public abstract class Button extends ItemStack {
@@ -62,7 +63,7 @@ public abstract class Button extends ItemStack {
     /**
      * This method defines what the button should do when it's clicked.
      *
-     * @param player The player who clicked.
+     * @param player    The player who clicked.
      * @param clickType The type of click.
      */
     public abstract void onClick(Player player, ClickType clickType);
