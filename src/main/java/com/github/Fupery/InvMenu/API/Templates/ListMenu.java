@@ -13,12 +13,17 @@ import org.bukkit.event.inventory.InventoryType;
 
 public abstract class ListMenu extends CacheableMenu {
 
-    private final String heading;
     protected int page;
+    protected int listStart;
 
     public ListMenu(MenuHandler handler, String heading, int page) {
+        this(handler, heading, 0, page);
+    }
+
+    public ListMenu(MenuHandler handler, String heading, int listStartIndex, int page) {
         super(handler, heading, InventoryType.CHEST);
         this.heading = heading;
+        this.listStart = listStartIndex;
         this.page = page;
     }
 
@@ -41,38 +46,38 @@ public abstract class ListMenu extends CacheableMenu {
     @Override
     public Button[] getButtons() {
         Button[] listItems = getListItems();
-        int maxButtons = 25;
-        Button[] buttons = new Button[maxButtons + 2];
+        int maxButtons = 25 - listStart;
+        Button[] buttons = new Button[type.getDefaultSize()];
 
         if (page < 1) {
-            buttons[0] = new CloseButton(this);
+            buttons[listStart] = new CloseButton(this);
 
         } else {
-            buttons[0] = new PageButton(false);
+            buttons[listStart] = new PageButton(false);
 
-            if (page > 0) {
-                buttons[0].setAmount(page - 1);
+            if (page > 1) {
+                buttons[listStart].setAmount(page - 1);
             }
         }
         if (listItems == null || listItems.length < 1) return buttons;
 
-        int start = page * maxButtons;
+        int start = page * (maxButtons);
         int pageLength = listItems.length - start;
 
         if (pageLength > 0) {
             int end = (pageLength >= maxButtons) ? maxButtons : pageLength;
 
-            System.arraycopy(listItems, start, buttons, 1, end);
+            System.arraycopy(listItems, start, buttons, listStart + 1, end);
 
             if (listItems.length > (maxButtons + start)) {
-                buttons[maxButtons + 1] = new PageButton(true);
+                buttons[maxButtons + listStart + 1] = new PageButton(true);
 
                 if (page < 64) {
-                    buttons[maxButtons + 1].setAmount(page + 1);
+                    buttons[maxButtons + listStart + 1].setAmount(page + 1);
                 }
 
             } else {
-                buttons[maxButtons + 1] = null;
+                buttons[maxButtons + listStart + 1] = null;
             }
         }
         return buttons;
@@ -86,11 +91,11 @@ public abstract class ListMenu extends CacheableMenu {
 
     protected abstract Button[] getListItems();
 
-    private class PageButton extends Button {
+    protected class PageButton extends Button {
 
         boolean forward;
 
-        private PageButton(boolean forward) {
+        public PageButton(boolean forward) {
             super(forward ? Material.EMERALD : Material.BARRIER, forward ? "§a§l➡" : "§c§l⬅");
             this.forward = forward;
         }
