@@ -5,6 +5,7 @@ import com.github.Fupery.InvMenu.API.Button.CloseButton;
 import com.github.Fupery.InvMenu.API.Event.MenuCloseReason;
 import com.github.Fupery.InvMenu.API.Handler.CacheableMenu;
 import com.github.Fupery.InvMenu.API.Handler.MenuHandler;
+import com.github.Fupery.InvMenu.Utils.MenuType;
 import com.github.Fupery.InvMenu.Utils.SoundCompat;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,7 +22,11 @@ public abstract class ListMenu extends CacheableMenu {
     }
 
     public ListMenu(MenuHandler handler, String heading, int listStartIndex, int page) {
-        super(handler, heading, InventoryType.CHEST);
+        this(handler, heading, new MenuType(InventoryType.CHEST), listStartIndex, page);
+    }
+
+    public ListMenu(MenuHandler handler, String heading, MenuType menuType, int listStartIndex, int page) {
+        super(handler, heading, menuType);
         this.heading = heading;
         this.listStart = listStartIndex;
         this.page = page;

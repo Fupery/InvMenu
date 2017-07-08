@@ -3,7 +3,7 @@ package com.github.Fupery.InvMenu.API.Handler;
 import com.github.Fupery.InvMenu.API.Button.Button;
 import com.github.Fupery.InvMenu.API.Event.MenuCloseReason;
 import com.github.Fupery.InvMenu.API.Templates.MenuTemplate;
-import org.bukkit.Bukkit;
+import com.github.Fupery.InvMenu.Utils.MenuType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -15,11 +15,19 @@ public abstract class CacheableMenu implements MenuTemplate {
 
     protected MenuHandler handler;
     protected String heading;
-    protected InventoryType type;
+    protected MenuType type;
     private Button[] buttons;
     private boolean open = false;
 
     protected CacheableMenu(MenuHandler handler, String heading, InventoryType type) {
+        this(handler, heading, new MenuType(type));
+    }
+
+    protected CacheableMenu(MenuHandler handler, String heading, int size) {
+        this(handler, heading, new MenuType(size));
+    }
+
+    protected CacheableMenu(MenuHandler handler, String heading, MenuType type) {
         this.handler = handler;
         this.heading = (heading.length() > 32) ? this.heading = heading.substring(0, 29) + "..." : heading;
         this.type = type;
@@ -34,7 +42,7 @@ public abstract class CacheableMenu implements MenuTemplate {
     }
 
     void open(Player player) {
-        Inventory inventory = Bukkit.createInventory(player, type, heading);
+        Inventory inventory = type.createInventory(player, heading);
         loadButtons(inventory);
         player.openInventory(inventory);
         onMenuOpenEvent(player);

@@ -18,6 +18,10 @@ public abstract class BasicMenu extends CacheableMenu {
         super(handler, heading, type);
     }
 
+    protected BasicMenu(MenuHandler handler, String heading, int size) {
+        super(handler, heading, size);
+    }
+
     @Override
     public void onMenuOpenEvent(Player viewer) {
     }
