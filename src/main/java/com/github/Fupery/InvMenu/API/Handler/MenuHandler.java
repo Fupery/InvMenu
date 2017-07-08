@@ -93,6 +93,7 @@ public class MenuHandler {
      */
     public void closeMenu(Player viewer, MenuCloseReason reason) {
         if (!openMenus.containsKey(viewer.getUniqueId())) return;
+        else viewer.closeInventory();
         CacheableMenu menu = getMenu(viewer);
         openMenus.remove(viewer.getUniqueId());
         menu.close(viewer, reason);
